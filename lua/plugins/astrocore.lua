@@ -29,7 +29,7 @@ return {
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true, -- sets vim.opt.wrap
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -45,14 +45,14 @@ return {
         -- second key is the lefthand side of the map
 
         -- navigate buffer tabs with `H` and `L`
-        -- L = {
-        --   function() require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
-        --   desc = "Next buffer",
-        -- },
-        -- H = {
-        --   function() require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
-        --   desc = "Previous buffer",
-        -- },
+        L = {
+          function() require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+          desc = "Next buffer",
+        },
+        H = {
+          function() require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
+          desc = "Previous buffer",
+        },
 
         -- mappings seen under group name "Buffer"
         ["<Leader>bD"] = {
@@ -72,6 +72,10 @@ return {
       t = {
         -- setting a mapping to false will disable it
         -- ["<esc>"] = false,
+      },
+      v = {
+        K = { ":m '<-2<cr>gv=gv", desc = "Move line up" },
+        J = { ":m '>+1<cr>gv=gv", desc = "Move line down" },
       },
     },
   },
