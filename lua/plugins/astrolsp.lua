@@ -8,6 +8,22 @@ return {
   "AstroNvim/astrolsp",
   ---@type AstroLSPOpts
   opts = {
+    commands = {
+      OrganizeImports = {
+        -- first element with no key is the command (string or function)
+        function()
+          local param = {
+            command = "_typescript.organizeImports",
+            arguments = { vim.api.nvim_buf_get_name(0) },
+          }
+          vim.lsp.buf.execute_command(param)
+        end,
+        -- condition to create the user command
+        cond = function(client) return client.name == "tsserver" end,
+        -- the rest are options for creating user commands (:h nvim_create_user_command)
+        desc = "Organize Imports (TS)",
+      },
+    },
     -- Configuration table of features provided by AstroLSP
     features = {
       autoformat = true, -- enable or disable auto formatting on start
@@ -94,6 +110,11 @@ return {
         --   desc = "Toggle LSP semantic highlight (buffer)",
         --   cond = function(client) return client.server_capabilities.semanticTokensProvider and vim.lsp.semantic_tokens end,
         -- },
+        ["<Leader>i"] = {
+          ":OrganizeImports<CR>",
+          cond = function(client) return client.name == "tsserver" end,
+          desc = "Organize Imports (TS)",
+        },
       },
     },
     -- A custom `on_attach` function to be run after the default `on_attach` function
