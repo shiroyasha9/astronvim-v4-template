@@ -43,6 +43,13 @@ return {
             condition = function(utils) return utils.root_has_file "biome.jsonc" or utils.root_has_file "biome.json" end,
           })
         end,
+        eslint = function()
+          require("null-ls").register(require("null-ls").builtins.formatting.eslint.with {
+            condition = function(utils)
+              return utils.root_has_file ".eslintrc.json" or utils.root_has_file ".eslintrc.js"
+            end,
+          })
+        end,
       }
     end,
   },
