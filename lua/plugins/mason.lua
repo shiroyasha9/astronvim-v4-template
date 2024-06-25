@@ -25,6 +25,25 @@ return {
         "stylua",
         -- add more arguments for adding more null-ls sources
       })
+      opts.handlers = {
+        prettier = function()
+          require("null-ls").register(require("null-ls").builtins.formatting.prettier.with {
+            condition = function(utils)
+              return utils.root_has_file ".prettierrc"
+                or utils.root_has_file ".prettierrc.json"
+                or utils.root_has_file ".prettierrc.js"
+                or utils.root_has_file "prettier.config.js"
+                or utils.root_has_file "prettier.config.mjs"
+                or utils.root_has_file "prettier.config.ts"
+            end,
+          })
+        end,
+        biome = function()
+          require("null-ls").register(require("null-ls").builtins.formatting.biome.with {
+            condition = function(utils) return utils.root_has_file "biome.jsonc" or utils.root_has_file "biome.json" end,
+          })
+        end,
+      }
     end,
   },
   {
