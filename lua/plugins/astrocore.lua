@@ -66,6 +66,26 @@ return {
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
+
+        ["<Leader>P"] = {
+          desc = "Package Info",
+        },
+        ["<Leader>Pi"] = {
+          function() require("package-info").install() end,
+          desc = "Install Package",
+        },
+        ["<Leader>Pu"] = {
+          function() require("package-info").update() end,
+          desc = "Update Package",
+        },
+        ["<Leader>Pd"] = {
+          function() require("package-info").delete() end,
+          desc = "Delete Package",
+        },
+        ["<Leader>Pv"] = {
+          function() require("package-info").change_version() end,
+          desc = "Change Package Version",
+        },
         -- quick save
         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
       },
